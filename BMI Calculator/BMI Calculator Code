@@ -1,0 +1,79 @@
+# Prompt user to enter his/her personal info: 
+
+name = input("Enter you name: ")
+
+weight = float(input("Enter your weight: "))
+
+weight_unit = input("Enter your preferred weight unit (lbs or kg): ")
+
+height = float(input("Enter your height: "))
+
+height_unit = input("Enter your preferred height unit (inches or cm): ")
+
+# Convert weight to pounds if user inputs kg: 
+
+if weight_unit.lower() == 'kg':
+    weight *= 2.20462
+    
+# Convert height to inches if user inputs cm: 
+
+if height_unit.lower() == 'cm':
+    height *= 0.393701
+
+# Calculate BMI: 
+
+BMI = (weight * 703) / (height * height)
+
+print(name +", your BMI is: ", BMI)
+
+# Check user's weight category: 
+
+if BMI > 0:
+    if(BMI < 18.5):
+        weight_category = "Underweight"
+        print(name +", you are underweight.")
+    elif (BMI <= 24.9):
+        weight_category = "Normal weight"
+        print(name +", you are normal weight.")
+    elif (BMI <= 29.9):
+        weight_category = "Overweight"
+        print(name +", you are overweight. Please aim for a healthier weight.")
+    elif (BMI <= 34.9):
+        weight_category = "Obese"
+        print(name +", you are obese. Please aim for a healthier weight.")
+    elif (BMI <= 39.9):
+        weight_category = "Severely Obese"
+        print(name +", you are severely obese. Please aim for a healthier weight.")
+    else:
+        weight_category = "Morbidly obese"
+        print(name +", you are morbidly obese. Please aim for a healthier weight.")
+else:
+    print("Enter valid input.")
+    
+# Scatter Plot Data Visualization showing where user stands in terms of BMI:
+
+import matplotlib.pyplot as plt
+plt.style.use('classic')
+
+plt.scatter(height, weight, color='blue')
+plt.xlabel("Height (inches)")
+plt.ylabel("Weight (pounds)")
+plt.title("BMI Calculator")
+
+# Annotate weight category
+plt.annotate(weight_category, (height, weight), textcoords="offset points", xytext=(0,10), ha='center')
+
+plt.show()
+
+# Heat Map Data Visualization:
+# Lower BMI values represented with cooler colors and higher BMI values represented with warmer colors
+
+data = [[BMI]]
+
+plt.imshow(data, cmap='YlOrRd', vmin=0, vmax=40)
+plt.colorbar(label='BMI')
+plt.xticks([])
+plt.yticks([])
+plt.title("BMI Heat Map")
+
+plt.show()
