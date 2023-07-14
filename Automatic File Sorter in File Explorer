@@ -1,0 +1,33 @@
+# Automatic File Sorter in File Explorer
+
+# Import libraries needed
+
+import os, shutil
+#Specify the path of my folder
+
+path = r"C:/Users/Aya K/Desktop/Folder/"
+# Show all the files within my path
+
+file_name = os.listdir(path)
+
+print(file_name)
+
+# This is the output of my above statement just to show what type of files I have: ['Business Prices ETSY.txt', 'Business.csv', 'IMG-8102.jpg', 'IMG-8158.JPG', 'IMG-8162.JPG', 'Screenshot (350).png']
+
+# Create the files I'd like my files to be sorted accordingly in
+
+folder_names = ['csv files', 'image files', 'text files']
+
+for loop in range (0,3):
+    if not os.path.exists(path + folder_names[loop]):
+        os.makedirs(path + folder_names[loop])
+
+# Loop through the files found in my original path and place them in the files I created in the first loop
+
+for file in file_name:
+    if ".csv" in file and not os.path.exists(path + "csv files/" + file):
+        shutil.move(path + file, path + "csv files/" + file)
+    elif ".jpg" in file or ".JPG" in file or ".png" in file and not os.path.exists(path + "image files/" + file):
+        shutil.move(path + file, path + "image files/" + file)
+    elif ".txt" in file and not os.path.exists(path + "text files/" + file):
+        shutil.move(path + file, path + "text files/" + file)
